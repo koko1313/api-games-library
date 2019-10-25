@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Games list</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<!-- Loading bar -->
+	<div id="loadingBar" class="text-center" style="display: none!important;">
+		<div class="spinner-border" role="status" style="position: relative; top: 45%">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<!-- Filters -->
+		<div class="row">
+			<div class="col-md">
+				<button type="button" id="openGenresModalButton" class="btn btn-primary" data-toggle="modal" data-target="#genresModal">
+					Избери жанрове 
+					<span class="badge badge-light"></span>
+				</button>
+				<button type="button" id="openPlatformsModalButton" class="btn btn-primary" data-toggle="modal" data-target="#platformsModal">
+					Избери платформи 
+					<span class="badge badge-light"></span>
+				</button>
+			</div>
+		</div>
+
+		<!-- Results -->
+		<div class="row">
+			<div class="col" id="results">
+
+			</div>
+		</div>
+
+		<!-- Page controls -->
+		<div class="row">
+			<div class="col">
+				<nav>
+					<ul class="pagination justify-content-center"">
+						<li class="page-item"><a class="page-link" href="#" id="previousPageButton">Previous</a></li>
+						<li><input class="page-item form-control text-center" id="currentPage" type="text"></li>
+						<li class="page-item"><a class="page-link" href="#" id="nextPageButton">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Result template -->
+	<div id="result-template-1" class="container result-design-1" style="display: none;">
+
+		<div class="row">
+			<div class="col">
+				<h3>Game title</h3>
+			</div>
+		</div>
+
+		<hr class="hr">
+
+		<div class="row">
+			<div class="col-md-5">
+				<img src="https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg" class="img-fluid">
+			</div>
+
+			<div class="col-md">
+				<p>Платформи <span class="platforms">PC, Android, ...</span></p>
+				<p>Разработчици: <span class="developers">Rockstar, ...</span></p>
+				<p>Жанр: <span class="genres">Action, Horror, ...</span></p>
+				<p>Дата на публикуване: <span class="release-date">01.01.2019</span></p>
+				<p>Рейтинг: <span class="rating">4.6 / 5 (5750 гласа)</span></p>
+			</div>
+		</div>
+
+	</div>
+
+	
+	<!-- Genres modal -->
+	<div class="modal fade" id="genresModal" tabindex="-1" role="dialog" aria-labelledby="genresModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="genresleModalLabel">Жанрове</h5>
+				</div>
+				<div class="modal-body">
+					<p class="text-info">Ако няма избрани жанрове, ще бъдат намерени игри за всички жанрове. Търсенето не е комбинирано!</p>
+					<!-- Шаблон за радио бутон -->
+					<div id="genresCheckboxGroupTemplate" class="form-check" style="display: none;">
+						<input class="form-check-input" type="checkbox" name="genresCheckBoxes" value="">
+						<label class="form-check-label">Default checkbox</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onCLick="search()">Търси</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Platforms modal -->
+	<div class="modal fade" id="platformsModal" tabindex="-1" role="dialog" aria-labelledby="platformsModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="platformsleModalLabel">Платформи</h5>
+					</div>
+					<div class="modal-body">
+						<p class="text-info">Ако няма избрани платформи, ще бъдат намерени игри за всички платформи. Търсенето не е комбинирано!</p>
+						<!-- Шаблон за радио бутон -->
+						<div id="platformsCheckboxGroupTemplate" class="form-check" style="display: none;">
+							<input class="form-check-input" type="checkbox" name="platformsCheckBoxes" value="">
+							<label class="form-check-label">Default checkbox</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onCLick="search()">Търси</button>
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<!-- Loading scrips -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
