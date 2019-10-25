@@ -4,38 +4,21 @@ const RESULTS_PER_PAGE = 5;
 var NUMBER_OF_PAGES = 0;
 var resultDesign = 1;
 
+var genre = null; // ще ни служи за зареждане по жанр
+var platform = null; // ще ни служи за зареждане по платформа
+
 // връща URL-а, нужен ни за търсене в API-то
 function getURL() {
     var url = "https://rawg-video-games-database.p.rapidapi.com/games?page=" + currentPage + "&page_size=" + RESULTS_PER_PAGE;
     
-    // проверяваме за селектирани жанрове
-    var genresCount = 0;
-    var genres = $("input[name='genresCheckBoxes']:checked");
-    for(var i=0; i<genres.length; i++) {
-        var genreValue = $(genres[i]).val();
-        if(i == 0) url += "&genres="; // само при първа итерация
-        url += genreValue + ",";
-        genresCount++;
-    }
-    if(genresCount > 0) {
-        $("#openGenresModalButton").find(".badge").text(genresCount);
-    } else {
-        $("#openGenresModalButton").find(".badge").text("");
+    // ако има избран жанр, търсим за него
+    if(genre) {
+        url += "&genres=" + genre;
     }
 
-    // проверяваме за селектирани платформи
-    var platformsCount = 0;
-    var platforms = $("input[name='platformsCheckBoxes']:checked");
-    for(var i=0; i<platforms.length; i++) {
-        var platformValue = $(platforms[i]).val();
-        if(i == 0) url += "&parent_platforms="; // само при първа итерация
-        url += platformValue + ",";
-        platformsCount++;
-    }
-    if(platformsCount > 0) {
-        $("#openPlatformsModalButton").find(".badge").text(platformsCount);
-    } else {
-        $("#openPlatformsModalButton").find(".badge").text("");
+    // ако има избрана платформа
+    if(platform) {
+        url += "&parent_platforms=" + platform;
     }
 
     return url;
@@ -43,7 +26,7 @@ function getURL() {
 
 // прави ajax заявката и се обръща към callback функция
 function ajax(url, callback, async = true) {
-    $("#loadingBar").show();
+    //$("#loadingBar").show();
     $.ajax({
         type: "GET",
         url: url,
@@ -53,7 +36,7 @@ function ajax(url, callback, async = true) {
             "x-rapidapi-key": "c0b2d8dca2msh0671a66d5c7bdf7p112ca6jsnd725d307e9ef"
         },
     }).done(function(resp) {
-        $("#loadingBar").hide();
+        //$("#loadingBar").hide();
         callback(resp);
     });
 }
@@ -105,15 +88,13 @@ function generateArrayOfGames(resp) {
     return gamesArray;
 }
 
+// изчиства всички резултати
+function clearResults() {
+    $("#results").html("");
+}
+
 // показва резултатите (извиква се като callback от ajax)
 function showResult(resp) {
-    // само при зареждането на първата страница (логическо си го правим така)
-    if(NUMBER_OF_PAGES == 0) {
-        NUMBER_OF_PAGES = Math.ceil(resp.count / RESULTS_PER_PAGE);
-    }
-    
-    $("#currentPage").val(currentPage);
-
     var games = generateArrayOfGames(resp);
 
     // показва резултатите, спрямо дизайна, който e избран
@@ -125,8 +106,6 @@ function showResult(resp) {
 
 // показва резултата по първия дизайн
 function showResultDesign1(games) {
-    $("#results").html("");
-
     for(var i=0; i<games.length; i++) {
         var htmlResult = $("#result-template-1").clone();
         htmlResult.attr('id', '');
@@ -153,16 +132,6 @@ function showResultDesign1(games) {
 
         // платформи
         for(var j=0; j<game.platforms.length; j++) {
-            /*
-            switch(game.platforms[j].toLowerCase()) {
-                case "pc" : htmlResult.find('.badge-pc').show(); break;
-                case "playstation" : htmlResult.find('.badge-ps').show(); break;
-                case "xbox" : htmlResult.find('.badge-xbox').show(); break;
-                default : 
-                    htmlResult.find('.badge-another').html(game.platforms[j]);
-                    htmlResult.find('.badge-another').show();
-            }
-            */
            htmlResult.find('.platforms').text(game.platforms.join(", "));
         }
 
@@ -171,33 +140,34 @@ function showResultDesign1(games) {
     }
 }
 
-// next page button
-$("#nextPageButton").click(function() {
-    if(currentPage+1 > NUMBER_OF_PAGES) return; // подсигуряваме си, че няма да отворим несъществуваща страница
+// търси и показва резултатите
+function search(param) {
+    if(param) {
+        clearResults(); // когато е зададен нов параметър, трием показаните до момента резултати
 
-    currentPage++;
+        if(param.genre) {
+            genre = param.genre;
+        }
+
+        if(param.platform) {
+            platform = param.platform;
+        }
+    }
+
     var url = getURL();
     ajax(url, showResult);
-});
-
-// previous page button
-$("#previousPageButton").click(function() {
-    if(currentPage-1 < 1) return; // подсигуряваме си, че няма да отворим несъществуваща страница
-
-    currentPage--;
-    var url = getURL();
-    ajax(url, showResult);
-});
+}
 
 // попълва филтъра с жанровете
 function loadGenres() {
     ajax("https://rawg-video-games-database.p.rapidapi.com/genres", function(resp) {
         for(var i=0; i<resp.count; i++) {
-            var checkbox = $("#genresCheckboxGroupTemplate").clone();
-            checkbox.find("input").val(resp.results[i].id);
-            checkbox.find("label").text(resp.results[i].name);
-            checkbox.show();
-            $("#genresModal").find(".modal-body").append(checkbox);
+            var genreItem = $("#genreItemTemplate").clone();
+            genreItem.attr({"onClick": "search({genre: '"+ resp.results[i].id +"'})"});
+            genreItem.text(resp.results[i].name);
+
+            genreItem.show();
+            $("#genresModal").find(".modal-body").find("ul").append(genreItem);
         }
     });
 }
@@ -206,11 +176,12 @@ function loadGenres() {
 function loadPlatforms() {
     ajax("https://rawg-video-games-database.p.rapidapi.com/platforms/lists/parents", function(resp) {
         for(var i=0; i<resp.count; i++) {
-            var checkbox = $("#platformsCheckboxGroupTemplate").clone();
-            checkbox.find("input").val(resp.results[i].id);
-            checkbox.find("label").text(resp.results[i].name);
-            checkbox.show();
-            $("#platformsModal").find(".modal-body").append(checkbox);
+            var platformItem = $("#platformItemTemplate").clone();
+            platformItem.attr({"onClick": "search({platform: '"+ resp.results[i].id +"'})"});
+            platformItem.text(resp.results[i].name);
+
+            platformItem.show();
+            $("#platformsModal").find(".modal-body").find("ul").append(platformItem);
         }
     });
 }
@@ -221,11 +192,13 @@ function loadFilters() {
     loadPlatforms();
 }
 
-// търси и показва резултатите
-function search() {
-    var url = getURL();
-    ajax(url, showResult);
-}
+// зарежда още резултати, когато скролнем до най-долу
+$(window).scroll(function() {
+    if($(window).scrollTop() == $(document).height() - $(window).height()) {
+        currentPage++;
+        search();
+    }
+});
 
 $(document).ready(function() {
     resultDesign = 1; // тук ще се взима по някакъв начин по кой дизайн да се показват резултатите

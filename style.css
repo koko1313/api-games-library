@@ -1,3 +1,14 @@
+/* main settings */
+body {
+    background-color: #151515;
+    color: white;
+}
+
+.modal {
+    color: black;
+}
+/* end of main settings */
+
 #loadingBar {
     width: 100%;
     height: 100vh;
@@ -9,6 +20,7 @@
 /* result template 1 */
 .result-design-1 {
     border: 2px solid black;
+    background-color: #202020;
     padding: 20px;
     margin: 10px 0;
 }

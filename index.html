@@ -20,12 +20,10 @@
 		<div class="row">
 			<div class="col-md">
 				<button type="button" id="openGenresModalButton" class="btn btn-primary" data-toggle="modal" data-target="#genresModal">
-					Избери жанрове 
-					<span class="badge badge-light"></span>
+					Избери жанр
 				</button>
 				<button type="button" id="openPlatformsModalButton" class="btn btn-primary" data-toggle="modal" data-target="#platformsModal">
-					Избери платформи 
-					<span class="badge badge-light"></span>
+					Избери платформа
 				</button>
 			</div>
 		</div>
@@ -34,19 +32,6 @@
 		<div class="row">
 			<div class="col" id="results">
 
-			</div>
-		</div>
-
-		<!-- Page controls -->
-		<div class="row">
-			<div class="col">
-				<nav>
-					<ul class="pagination justify-content-center"">
-						<li class="page-item"><a class="page-link" href="#" id="previousPageButton">Previous</a></li>
-						<li><input class="page-item form-control text-center" id="currentPage" type="text"></li>
-						<li class="page-item"><a class="page-link" href="#" id="nextPageButton">Next</a></li>
-					</ul>
-				</nav>
 			</div>
 		</div>
 
@@ -79,46 +64,43 @@
 
 	</div>
 
-	
 	<!-- Genres modal -->
-	<div class="modal fade" id="genresModal" tabindex="-1" role="dialog" aria-labelledby="genresModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal fade" id="genresModal" tabindex="-1" role="dialog" aria-labelledby="genresModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="genresleModalLabel">Жанрове</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
-					<p class="text-info">Ако няма избрани жанрове, ще бъдат намерени игри за всички жанрове. Търсенето не е комбинирано!</p>
-					<!-- Шаблон за радио бутон -->
-					<div id="genresCheckboxGroupTemplate" class="form-check" style="display: none;">
-						<input class="form-check-input" type="checkbox" name="genresCheckBoxes" value="">
-						<label class="form-check-label">Default checkbox</label>
-					</div>
+					<ul>
+						<!-- Шаблон за линк към жанр -->
+						<li id="genreItemTemplate" onClick="search({genre: 'horror'})" style="display: none;">Horror</li>
+					</ul>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onCLick="search()">Търси</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Platforms modal -->
-	<div class="modal fade" id="platformsModal" tabindex="-1" role="dialog" aria-labelledby="platformsModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal fade" id="platformsModal" tabindex="-1" role="dialog" aria-labelledby="platformsModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="platformsleModalLabel">Платформи</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
-						<p class="text-info">Ако няма избрани платформи, ще бъдат намерени игри за всички платформи. Търсенето не е комбинирано!</p>
-						<!-- Шаблон за радио бутон -->
-						<div id="platformsCheckboxGroupTemplate" class="form-check" style="display: none;">
-							<input class="form-check-input" type="checkbox" name="platformsCheckBoxes" value="">
-							<label class="form-check-label">Default checkbox</label>
-						</div>
+						<ul>
+							<!-- Шаблон за линк към платформа -->
+							<li id="platformItemTemplate" onClick="search({platform: 'pc'})" style="display: none;">PC</li>
+						</ul>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onCLick="search()">Търси</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
