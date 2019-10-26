@@ -287,6 +287,27 @@ $(window).scroll(function() {
     }
 });
 
+var position = $(window).scrollTop(); 
+$(window).scroll(function() {
+    var scroll = $(window).scrollTop();
+
+    // scroll down
+    if(scroll > position) {
+        $("#goTopButton").fadeOut();
+
+    // scroll up
+    } else {
+        $("#goTopButton").slideDown();
+    }
+
+    position = scroll;
+});
+
+// скролва до началото на страницата
+function goToTopOfPage() {
+    $("html, body").animate({ scrollTop: 0 }, "medium");
+}
+
 $(document).ready(function() {
     search();
     loadFilters();

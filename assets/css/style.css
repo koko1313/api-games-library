@@ -13,6 +13,14 @@ h1 {
 .list-group li:hover {
     cursor: pointer;
 }
+#goTopButton {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    font-size: 2em;
+    border: 2px solid black;
+    cursor: pointer;
+}
 /* end of main settings */
 
 /* customize some bootstrap classes */
