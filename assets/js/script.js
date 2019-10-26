@@ -216,12 +216,20 @@ function selectGenre(htmlItem) {
 
     $(htmlItem).addClass("active");
     var genreId = htmlItem.dataset.value;
-    search({genre: genreId});
 
     var genreName = $(htmlItem).text();
     $("#openGenresModalButton").text("Жанр: "+ genreName);
-
     $("#genresModal").modal('hide');
+
+    // да се покажат всички
+    if(genreId == 0) {
+        genre = null;
+        clearResults();
+        search();
+        return;
+    }
+
+    search({genre: genreId});
 }
 
 // селектиране на платформа - извиква се когато се кликне бутона на някоя платформа
@@ -235,12 +243,20 @@ function selectPlatform(htmlItem) {
 
     $(htmlItem).addClass("active");
     var platformId = htmlItem.dataset.value;
-    search({platform: platformId});
 
     var platformName = $(htmlItem).text();
     $("#openPlatformsModalButton").text("Платформа: "+ platformName);
-
     $("#platformsModal").modal('hide');
+
+    // да се покажат всички
+    if(platformId == 0) {
+        platform = null;
+        clearResults();
+        search();
+        return;
+    }
+
+    search({platform: platformId});
 }
 
 // попълва филтъра с жанровете
