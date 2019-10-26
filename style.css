@@ -4,6 +4,9 @@ body {
     color: white;
     font-family: 'Open Sans', sans-serif;
 }
+h1 {
+    color: #63C83D;
+}
 .modal {
     color: black;
 }
@@ -31,7 +34,7 @@ body {
     margin: 10px 0;
 }
 .result-design-1 h3 {
-    display: inline;
+    color: #63C83D;
 }
 .result-design-1 img {
     border: 2px solid #234715;
