@@ -158,12 +158,41 @@ function search(param) {
     ajax(url, showResult);
 }
 
+// селектиране на жанр - извикава се когато се кликне бутона на някой жанр
+function selectGenre(htmlItem) {
+
+    // премахваме класът за активен бутон от всички бутони
+    var genres = $(htmlItem).parent().children();
+    for(var i=0; i<genres.length; i++) {
+        genres.removeClass("active");
+    }
+
+    $(htmlItem).addClass("active");
+    var genreId = htmlItem.dataset.value;
+    search({genre: genreId});
+}
+
+// селектиране на платформа - извиква се когато се кликне бутона на някоя платформа
+function selectPlatform(htmlItem) {
+
+    // премахваме класът за активен бутон от всички бутони
+    var platforms = $(htmlItem).parent().children();
+    for(var i=0; i<platforms.length; i++) {
+        platforms.removeClass("active");
+    }
+
+    $(htmlItem).addClass("active");
+    var platformId = htmlItem.dataset.value;
+    search({platform: platformId});
+}
+
 // попълва филтъра с жанровете
 function loadGenres() {
     ajax("https://rawg-video-games-database.p.rapidapi.com/genres", function(resp) {
         for(var i=0; i<resp.count; i++) {
             var genreItem = $("#genreItemTemplate").clone();
-            genreItem.attr({"onClick": "search({genre: '"+ resp.results[i].id +"'})"});
+            genreItem.removeAttr("id");
+            genreItem.attr("data-value", resp.results[i].id);
             genreItem.text(resp.results[i].name);
 
             genreItem.show();
@@ -177,7 +206,8 @@ function loadPlatforms() {
     ajax("https://rawg-video-games-database.p.rapidapi.com/platforms/lists/parents", function(resp) {
         for(var i=0; i<resp.count; i++) {
             var platformItem = $("#platformItemTemplate").clone();
-            platformItem.attr({"onClick": "search({platform: '"+ resp.results[i].id +"'})"});
+            platformItem.removeAttr("id");
+            platformItem.attr("data-value", resp.results[i].id);
             platformItem.text(resp.results[i].name);
 
             platformItem.show();
