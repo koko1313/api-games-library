@@ -3,10 +3,9 @@ body {
     background-color: #151515;
     color: white;
 }
-.modal .modal-content{
+.modal {
     color: black;
 }
-
 .list-group li:hover {
     cursor: pointer;
 }
