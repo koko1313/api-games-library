@@ -26,27 +26,34 @@ h1 {
 }
 /* end of bootstrap classes customization */
 
-/* result template 1 */
-.result-design-1 {
+/* result game */
+.result-game {
     border: 2px solid #234715;
     background-color: #202020;
     padding: 20px;
     margin: 10px 0;
 }
-.result-design-1 h3 {
+.result-game h3 {
     color: #63C83D;
 }
-.result-design-1 img {
+.result-game img {
     border: 2px solid #234715;
     padding: 2px;
     border-radius: 15px 0 15px 0;
 }
-.result-design-1 p {
+.result-game p {
     color: #63C83D;
     font-weight: bold;
 }
-.result-design-1 p span {
+.result-game p span {
     color: white;
     font-weight: normal;
 }
-/* end of result template 1 */
+
+/* result template 2 */
+.card {
+    float: left!important;
+    min-width: 350px;
+    margin: 30px 0;
+}
+/* end of result game */

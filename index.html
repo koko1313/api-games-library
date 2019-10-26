@@ -3,7 +3,8 @@
 <head>
 	<title>Games list</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -18,12 +19,15 @@
 		<!-- Filters -->
 		<div class="row">
 			<div class="col-md">
-				<button type="button" id="openGenresModalButton" class="btn btn-primary" data-toggle="modal" data-target="#genresModal">
-					Избери жанр
-				</button>
-				<button type="button" id="openPlatformsModalButton" class="btn btn-primary" data-toggle="modal" data-target="#platformsModal">
-					Избери платформа
-				</button>
+				<a href="#" id="openGenresModalButton" class="btn btn-primary" data-toggle="modal" data-target="#genresModal">Избери жанр</a>
+				<a href="#" id="openPlatformsModalButton" class="btn btn-primary" data-toggle="modal" data-target="#platformsModal">Избери платформа</a>
+				
+				<div class="float-right">
+					<!-- Rows -->
+					<a href="#" class="btn btn-primary" onClick="setResultDesign(1)"><i class="fas fa-grip-lines"></i></a>
+					<!-- Grid -->
+					<a href="#" class="btn btn-primary" onClick="setResultDesign(2)"><i class="fas fa-th"></i></a>
+				</div>
 			</div>
 		</div>
 
@@ -48,7 +52,7 @@
 	</div>
 
 	<!-- Result template -->
-	<div id="result-template-1" class="container result-design-1" style="display: none;">
+	<div id="result-template-1" class="container result-game" style="display: none;">
 
 		<div class="row">
 			<div class="col">
@@ -72,6 +76,23 @@
 			</div>
 		</div>
 
+	</div>
+
+	<!-- Result template 2 -->
+	<div id="result-template-2" class="card-deck" style="display: none;">
+		<div id="result-template-2-card" class="card result-game" style="display: none;">
+			<img src="https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg" class="card-img-top">
+			<div class="card-body">
+				<h3 class="card-title">Game title</h3>
+				<p class="card-text">
+					<p>Платформи <span class="platforms">PC, Android, ...</span></p>
+					<p>Разработчици: <span class="developers">Rockstar, ...</span></p>
+					<p>Жанр: <span class="genres">Action, Horror, ...</span></p>
+					<p>Дата на публикуване: <span class="release-date">01.01.2019</span></p>
+					<p>Рейтинг: <span class="rating">4.6 / 5 (5750 гласа)</span></p>
+				</p>
+			</div>
+		</div>
 	</div>
 
 	<!-- Genres modal -->
@@ -120,6 +141,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script src="script.js"></script>
+	<script src="assets/js/script.js"></script>
 </body>
 </html>

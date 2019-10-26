@@ -1,7 +1,6 @@
 // глобални променливи
 var currentPage = 1;
-const RESULTS_PER_PAGE = 5;
-var NUMBER_OF_PAGES = 0;
+const RESULTS_LOAD_AT_A_TIME = 9;
 var resultDesign = 1;
 
 var genre = null; // ще ни служи за зареждане по жанр
@@ -9,7 +8,7 @@ var platform = null; // ще ни служи за зареждане по пла
 
 // връща URL-а, нужен ни за търсене в API-то
 function getURL() {
-    var url = "https://rawg-video-games-database.p.rapidapi.com/games?page=" + currentPage + "&page_size=" + RESULTS_PER_PAGE;
+    var url = "https://rawg-video-games-database.p.rapidapi.com/games?page=" + currentPage + "&page_size=" + RESULTS_LOAD_AT_A_TIME;
     
     // ако има избран жанр, търсим за него
     if(genre) {
@@ -88,6 +87,13 @@ function generateArrayOfGames(resp) {
     return gamesArray;
 }
 
+// сетва избрания дизайн за показване на резултатите и ги визуализира по него
+function setResultDesign(designNumber) {
+    resultDesign = designNumber;
+    clearResults();
+    search();
+}
+
 // изчиства всички резултати
 function clearResults() {
     $("#results").html("");
@@ -100,6 +106,7 @@ function showResult(resp) {
     // показва резултатите, спрямо дизайна, който e избран
     switch(resultDesign) {
         case 1 : showResultDesign1(games); break;
+        case 2 : showResultDesign2(games); break;
     }
 
 }
@@ -108,7 +115,7 @@ function showResult(resp) {
 function showResultDesign1(games) {
     for(var i=0; i<games.length; i++) {
         var htmlResult = $("#result-template-1").clone();
-        htmlResult.attr('id', '');
+        htmlResult.attr("id", "");
 
         var game = games[i];
 
@@ -138,6 +145,46 @@ function showResultDesign1(games) {
         htmlResult.show();
         $("#results").append(htmlResult);
     }
+}
+
+// показва резултата по втория дизайн
+function showResultDesign2(games) {
+    var resultCards = $("#result-template-2").clone();
+
+    for(var i=0; i<games.length; i++) {
+        var htmlResult = $("#result-template-2-card").clone();
+        $(htmlResult).attr("id", "");
+        var game = games[i];
+
+        // заглавие
+        htmlResult.find('h3').text(game.name);
+
+        // картинка
+        htmlResult.find('img').attr("src", game.image);
+
+        // дата на излизане
+        htmlResult.find('.release-date').text(game.releaseDate);
+
+        // рейтинг
+        htmlResult.find('.rating').text(game.rating);
+
+        // разработчици
+        htmlResult.find('.developers').text(game.developers.join(", "));
+
+        // жанрове
+        htmlResult.find('.genres').text(game.genres.join(", "));
+
+        // платформи
+        for(var j=0; j<game.platforms.length; j++) {
+           htmlResult.find('.platforms').text(game.platforms.join(", "));
+        }
+
+        htmlResult.show();
+        resultCards.append(htmlResult);
+    }
+
+    resultCards.show();
+    $("#results").append(resultCards);
 }
 
 // търси и показва резултатите
@@ -235,8 +282,6 @@ $(window).scroll(function() {
 });
 
 $(document).ready(function() {
-    resultDesign = 1; // тук ще се взима по някакъв начин по кой дизайн да се показват резултатите
     search();
-
     loadFilters();
 });
