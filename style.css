@@ -3,15 +3,29 @@ body {
     background-color: #151515;
     color: white;
 }
-
-.modal {
+.modal .modal-content{
     color: black;
+}
+
+.list-group li:hover {
+    cursor: pointer;
 }
 /* end of main settings */
 
+/* customize some bootstrap classes */
+.active {
+    background-color: #63C83D!important;
+    border: none;
+}
+.btn-primary {
+    background-color: #63C83D!important;
+    border: none;
+}
+/* end of bootstrap classes customization */
+
 /* result template 1 */
 .result-design-1 {
-    border: 2px solid black;
+    border: 2px solid #234715;
     background-color: #202020;
     padding: 20px;
     margin: 10px 0;
@@ -20,14 +34,16 @@ body {
     display: inline;
 }
 .result-design-1 img {
-    border: 1px solid black;
+    border: 2px solid #234715;
     padding: 2px;
     border-radius: 15px 0 15px 0;
 }
 .result-design-1 p {
+    color: #63C83D;
     font-weight: bold;
 }
 .result-design-1 p span {
+    color: white;
     font-weight: normal;
 }
 /* end of result template 1 */
