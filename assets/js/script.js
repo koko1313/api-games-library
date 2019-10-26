@@ -275,7 +275,7 @@ function loadFilters() {
 
 // зарежда още резултати, когато скролнем до най-долу
 $(window).scroll(function() {
-    if($(window).scrollTop() == $(document).height() - $(window).height()) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         currentPage++;
         search();
     }
