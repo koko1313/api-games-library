@@ -218,6 +218,9 @@ function selectGenre(htmlItem) {
     var genreId = htmlItem.dataset.value;
     search({genre: genreId});
 
+    var genreName = $(htmlItem).text();
+    $("#openGenresModalButton").text("Жанр: "+ genreName);
+
     $("#genresModal").modal('hide');
 }
 
@@ -233,6 +236,9 @@ function selectPlatform(htmlItem) {
     $(htmlItem).addClass("active");
     var platformId = htmlItem.dataset.value;
     search({platform: platformId});
+
+    var platformName = $(htmlItem).text();
+    $("#openPlatformsModalButton").text("Платформа: "+ platformName);
 
     $("#platformsModal").modal('hide');
 }
