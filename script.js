@@ -26,7 +26,7 @@ function getURL() {
 
 // прави ajax заявката и се обръща към callback функция
 function ajax(url, callback, async = true) {
-    //$("#loadingBar").show();
+    $("#loadingBar").show();
     $.ajax({
         type: "GET",
         url: url,
@@ -36,7 +36,7 @@ function ajax(url, callback, async = true) {
             "x-rapidapi-key": "c0b2d8dca2msh0671a66d5c7bdf7p112ca6jsnd725d307e9ef"
         },
     }).done(function(resp) {
-        //$("#loadingBar").hide();
+        $("#loadingBar").hide();
         callback(resp);
     });
 }
