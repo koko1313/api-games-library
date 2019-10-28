@@ -21,6 +21,9 @@ h1 {
     border: 2px solid black;
     cursor: pointer;
 }
+hr {
+    border-top: 1px solid #234715;
+}
 /* end of main settings */
 
 /* customize some bootstrap classes */
