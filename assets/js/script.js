@@ -295,16 +295,15 @@ function loadFilters() {
     loadPlatforms();
 }
 
-// зарежда още резултати, когато скролнем до най-долу
+var position = $(window).scrollTop(); 
 $(window).scroll(function() {
+
+    // зарежда още резултати, когато скролнем до най-долу
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         currentPage++;
         search();
     }
-});
 
-var position = $(window).scrollTop(); 
-$(window).scroll(function() {
     var scroll = $(window).scrollTop();
 
     // scroll down
@@ -317,6 +316,11 @@ $(window).scroll(function() {
     }
 
     position = scroll;
+
+    // скриваме "go to top" бутона, когато сме най-горе
+    if(position == 0) {
+        $("#goTopButton").fadeOut();
+    }
 });
 
 // скролва до началото на страницата
