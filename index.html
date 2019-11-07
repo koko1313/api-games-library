@@ -27,11 +27,17 @@
 				<a href="#" id="openGenresModalButton" class="btn btn-primary" data-toggle="modal" data-target="#genresModal">Жанр: Всички</a>
 				<a href="#" id="openPlatformsModalButton" class="btn btn-primary" data-toggle="modal" data-target="#platformsModal">Платформа: Всички</a>
 				
-				<div class="float-right d-none d-md-block">
+				<!-- Different views -->
+				<div class="float-right d-none d-md-block" style="margin-left: 20px;">
 					<!-- Rows -->
 					<a href="#" class="btn btn-primary" onClick="setResultDesign(1)"><i class="fas fa-grip-lines"></i></a>
 					<!-- Grid -->
 					<a href="#" class="btn btn-primary" onClick="setResultDesign(2)"><i class="fas fa-th"></i></a>
+				</div>
+
+				<!-- Ordering -->
+				<div class="float-right">
+					<a href="#" id="trigerOrderByReleasedButton" class="btn btn-primary" onClick="trigerOrderByReleased()"><i class="fas fa-sort-numeric-down-alt"></i></a>
 				</div>
 			</div>
 		</div>

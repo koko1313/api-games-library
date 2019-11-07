@@ -5,6 +5,7 @@ var resultDesign = 1;
 
 var genre = null; // ще ни служи за зареждане по жанр
 var platform = null; // ще ни служи за зареждане по платформа
+var orderByReleased = false; // ще ни служи за сортиране по дата на публикуване
 
 // връща URL-а, нужен ни за търсене в API-то
 function getURL() {
@@ -18,6 +19,11 @@ function getURL() {
     // ако има избрана платформа
     if(platform) {
         url += "&parent_platforms=" + platform;
+    }
+
+    // ако е избрано сортиране
+    if(orderByReleased) {
+        url += "&ordering=released";
     }
 
     return url;
@@ -257,6 +263,21 @@ function selectPlatform(htmlItem) {
     }
 
     search({platform: platformId});
+}
+
+// тригърва сортирането по дата
+function trigerOrderByReleased() {
+    orderByReleased = !orderByReleased;
+    
+    clearResults();
+    search();
+
+    // променяме иконката на бутона
+    if(orderByReleased) {
+        $("#trigerOrderByReleasedButton").html('<i class="fas fa-sort-numeric-up"></i>');
+    } else {
+        $("#trigerOrderByReleasedButton").html('<i class="fas fa-sort-numeric-down-alt"></i>');
+    }
 }
 
 // попълва филтъра с жанровете
