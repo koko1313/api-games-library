@@ -1,6 +1,6 @@
 // глобални променливи
 var currentPage = 1;
-const RESULTS_LOAD_AT_A_TIME = 9;
+const RESULTS_LOAD_AT_A_TIME = 6;
 var resultDesign = 1;
 
 var genre = null; // ще ни служи за зареждане по жанр
