@@ -102,7 +102,16 @@ function setResultDesign(designNumber) {
 
 // изчиства всички резултати
 function clearResults() {
+    // клонираме си шаблоните
+    var resultTemplate1 = $("#result-template-1").clone();
+    var resultTemplate2 = $("#result-template-2").clone();
+    
+    // изчистваме
     $("#results").html("");
+    
+    // поставяме си обратно шаблоните
+    $("#results").append(resultTemplate1);
+    $("#results").append(resultTemplate2);
 }
 
 // показва резултатите (извиква се като callback от ajax)
